@@ -1,22 +1,29 @@
 import SwiftUI
 
 struct GuestSearchResultsView: View {
+    @State private var searchParams = SearchParams()
+    @State private var hotels = Hotel.sampleHotels
+    
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            SearchWidgetView(searchParams: $searchParams)
+                .padding()
+                .background(Color(.systemBackground))
+            
+            Divider()
+            
             ScrollView {
-                VStack {
-                    Text("Guest Search Results View")
-                        .font(.largeTitle)
-                        .padding()
-                    
-                    Text("Hotel Grid/List Here")
-                        .padding()
-                    
-                    NavigationLink("Go to Guest Hotel Details", destination: GuestHotelDetailsView())
-                        .padding()
+                LazyVStack(spacing: 15) {
+                    ForEach(hotels) { hotel in
+                        NavigationLink(destination: GuestHotelDetailsView(hotel: hotel)) {
+                            HotelCardFullView(hotel: hotel)
+                        }
+                    }
                 }
+                .padding()
             }
-            .navigationTitle("Search Results")
         }
+        .navigationTitle("Search Results")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

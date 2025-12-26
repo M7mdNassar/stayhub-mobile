@@ -1,46 +1,75 @@
 import SwiftUI
 
 struct SubmitReviewView: View {
-    @State private var rating = 0
+    let hotelName: String
+    @Environment(\.dismiss) private var dismiss
+    @State private var rating = 5
     @State private var reviewText = ""
     @State private var navigateToConfirmation = false
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack {
-            Text("Submit Review View")
-                .font(.largeTitle)
-                .padding()
-            
-            Text("Star Rating Input (1-5)")
-                .padding()
-            
-            TextEditor(text: $reviewText)
-                .frame(height: 150)
-                .border(Color.gray)
-                .padding()
-            
-            Button("Submit Review") {
-                // API call
-                navigateToConfirmation = true
-            }
-            .buttonStyle(.borderedProminent)
-            .padding()
-            
-            Button("Cancel") {
-                dismiss()
-            }
-            .padding()
-            
-            .navigationDestination(
-                isPresented: $navigateToConfirmation) {
-                    ReviewConfirmedView()
-                        Text("")
-                        .hidden()
-                     }
-            
+        NavigationStack {
+            VStack(spacing: 25) {
+                Text("Review \(hotelName)")
+                    .font(.title2)
+                    .bold()
+                    .padding(.top)
                 
+                // Star Rating
+                VStack(spacing: 10) {
+                    Text("Your Rating")
+                        .font(.headline)
+                    
+                    HStack(spacing: 15) {
+                        ForEach(1...5, id: \.self) { star in
+                            Image(systemName: star <= rating ? "star.fill" : "star")
+                                .font(.largeTitle)
+                                .foregroundColor(star <= rating ? .yellow : .gray)
+                                .onTapGesture {
+                                    rating = star
+                                }
+                        }
+                    }
+                }
+                
+                // Review Text
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Your Review")
+                        .font(.headline)
+                    
+                    TextEditor(text: $reviewText)
+                        .frame(height: 150)
+                        .padding(8)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                }
+                
+                Spacer()
+                
+                Button(action: {
+                    navigateToConfirmation = true
+                }) {
+                    Text("Submit Review")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(12)
+                }
+            }
+            .padding()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
+            .navigationDestination(isPresented: $navigateToConfirmation) {
+                ReviewConfirmedView()
+            }
         }
-        .navigationTitle("Write a Review")
     }
 }

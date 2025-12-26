@@ -9,11 +9,14 @@ struct Hotel: Codable, Identifiable {
     let images: [String]
     let description: String
     let amenities: [String]
-    let coordinates: Coordinates
+    let pricePerNight: Double
+    let discount: Int?
     let chainName: String?
-}
-
-struct Coordinates: Codable {
-    let latitude: Double
-    let longitude: Double
+    
+    var finalPrice: Double {
+        if let discount = discount {
+            return pricePerNight * (1.0 - Double(discount) / 100.0)
+        }
+        return pricePerNight
+    }
 }

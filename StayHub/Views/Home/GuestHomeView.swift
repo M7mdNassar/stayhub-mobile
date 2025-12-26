@@ -1,32 +1,74 @@
 import SwiftUI
 
 struct GuestHomeView: View {
+    @State private var searchParams = SearchParams()
+    
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack {
-                    Text("Guest Home View")
-                        .font(.largeTitle)
-                        .padding()
+                VStack(alignment: .leading, spacing: 25) {
+                    // Hero Section
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Explore Our Latest")
+                            .font(.system(size: 28, weight: .bold))
+                        + Text(" Booking")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.blue)
+                        + Text(" Services")
+                            .font(.system(size: 28, weight: .bold))
+                        
+                        Text("Browse amazing hotels and destinations. Sign in to book!")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
                     
-                    Text("Search Widget Here")
-                        .padding()
+                    // Search Widget
+                    SearchWidgetView(searchParams: $searchParams)
+                        .padding(.horizontal)
                     
-                    Text("Featured Deals")
-                        .font(.headline)
-                        .padding()
-                    
-                    NavigationLink("Go to Guest Hotel Details", destination: GuestHotelDetailsView())
-                        .padding()
-                    
-                    NavigationLink("Login", destination: LoginView())
-                        .padding()
-                    
-                    NavigationLink("Sign Up", destination: SignUpView())
-                        .padding()
+                    // Featured Deals
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Featured Deals")
+                            .font(.title2)
+                            .bold()
+                            .padding(.horizontal)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                ForEach(Hotel.sampleHotels) { hotel in
+                                    NavigationLink(destination: GuestHotelDetailsView(hotel: hotel)) {
+                                        HotelCardView(hotel: hotel)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
                 }
+                .padding(.vertical)
             }
             .navigationTitle("StayHub")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+                        NavigationLink(destination: LoginView()) {
+                            Text("Login")
+                                .foregroundColor(.blue)
+                        }
+                        
+                        NavigationLink(destination: SignUpView()) {
+                            Text("Sign Up")
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+            }
         }
     }
 }
