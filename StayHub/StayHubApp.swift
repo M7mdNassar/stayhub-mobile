@@ -1,17 +1,17 @@
-//
-//  StayHubApp.swift
-//  StayHub
-//
-//  Created by Mac on 25/12/2025.
-//
 
 import SwiftUI
 
 @main
 struct StayHubApp: App {
+    @StateObject private var themeManager = ThemeManager()
+    @StateObject private var authManager = AuthManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(themeManager)
+                .environmentObject(authManager)
+                .preferredColorScheme(themeManager.isDarkMode ? .dark : .light)
         }
     }
 }
