@@ -34,8 +34,14 @@ struct SignUpView: View {
             NavigationLink("Already have an account? Log in", destination: LoginView())
                 .padding()
             
-            NavigationLink("", destination: AccountCreatedView(), isActive: $navigateToAccountCreated)
-                .hidden()
+          
+            .navigationDestination(
+                isPresented: $navigateToAccountCreated) {
+                    AccountCreatedView()
+                            .hidden()
+                         }
+            
+            
         }
         .navigationTitle("Sign Up")
     }

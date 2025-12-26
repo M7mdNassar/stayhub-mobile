@@ -32,8 +32,14 @@ struct SubmitReviewView: View {
             }
             .padding()
             
-            NavigationLink("", destination: ReviewConfirmedView(), isActive: $navigateToConfirmation)
-                .hidden()
+            .navigationDestination(
+                isPresented: $navigateToConfirmation) {
+                    ReviewConfirmedView()
+                        Text("")
+                        .hidden()
+                     }
+            
+                
         }
         .navigationTitle("Write a Review")
     }
