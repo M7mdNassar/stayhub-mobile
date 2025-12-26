@@ -1,20 +1,9 @@
 import Foundation
 
-struct Cart: Codable {
-    var items: [CartItem]
-    
-    var totalCost: Double {
-        items.reduce(0) { $0 + $1.totalPrice }
-    }
-    
-    var itemCount: Int {
-        items.count
-    }
-}
-
-struct CartItem: Codable, Identifiable {
-    let id: String
+struct CartItem: Identifiable {
+    let id = UUID()
     let room: Room
+    let hotel: Hotel
     let nights: Int
     
     var totalPrice: Double {

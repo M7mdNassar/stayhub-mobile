@@ -5,42 +5,86 @@ struct LoginView: View {
     @State private var username = ""
     @State private var password = ""
     @State private var showPassword = false
-    @State private var navigateToSignUp = false
-    @State private var navigateToForgotPassword = false
+    @State private var navigateToGuest = false
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Login View")
-                    .font(.largeTitle)
-                    .padding()
-                
-                TextField("Username", text: $username)
-                    .textFieldStyle(.roundedBorder)
-                    .padding()
-                
-                SecureField("Password", text: $password)
-                    .textFieldStyle(.roundedBorder)
-                    .padding()
-                
-                Button("Login") {
-                    authManager.login(username: username, password: password)
+            ScrollView {
+                VStack(spacing: 25) {
+                    Spacer(minLength: 60)
+                    
+                    // Logo
+                    Image(systemName: "airplane.circle.fill")
+                        .resizable()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(Color.blue)
+                    
+                    Text("StayHub")
+                        .font(.system(size: 36, weight: .bold))
+                    
+                    // Login Form
+                    VStack(spacing: 20) {
+                        TextField("Username or Email", text: $username)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                        
+                        HStack {
+                            if showPassword {
+                                TextField("Password", text: $password)
+                                    .textInputAutocapitalization(.never)
+                            } else {
+                                SecureField("Password", text: $password)
+                            }
+                            
+                            Button(action: { showPassword.toggle() }) {
+                                Image(systemName: showPassword ? "eye.slash" : "eye")
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        
+                        Button(action: {
+                            authManager.login(username: username, password: password)
+                        }) {
+                            Text("Login")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(12)
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    // Links
+                    NavigationLink(destination: ForgotPasswordInputView()) {
+                        Text("Forgot Password?")
+                            .foregroundColor(.blue)
+                    }
+                    
+                    NavigationLink(destination: SignUpView()) {
+                        Text("Create an Account")
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                    }
+                    
+                    Button(action: {
+                        navigateToGuest = true
+                    }) {
+                        Text("Browse as Guest")
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Spacer()
                 }
-                .buttonStyle(.borderedProminent)
-                .padding()
-                
-                NavigationLink("Create an Account", destination: SignUpView())
-                    .padding()
-                
-                NavigationLink("Forgot Password?", destination: ForgotPasswordInputView())
-                    .padding()
-                
-                Button("Browse as Guest") {
-                    // Navigate to GuestHomeView
-                }
-                .padding()
             }
-            .navigationTitle("Login")
+            .navigationDestination(isPresented: $navigateToGuest) {
+                GuestHomeView()
+            }
         }
     }
 }

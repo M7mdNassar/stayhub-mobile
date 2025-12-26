@@ -4,27 +4,54 @@ struct LoginSignupPromptView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack {
-            Text("Login/Signup Prompt View")
-                .font(.largeTitle)
-                .padding()
+        VStack(spacing: 25) {
+            Spacer()
             
-            Text("Please log in or sign up to continue")
-                .font(.title3)
-                .padding()
+            Image(systemName: "lock.circle.fill")
+                .resizable()
+                .frame(width: 80, height: 80)
+                .foregroundColor(.blue)
             
-            NavigationLink("Login", destination: LoginView())
-                .buttonStyle(.borderedProminent)
-                .padding()
+            Text("Login Required")
+                .font(.title)
+                .bold()
             
-            NavigationLink("Create an Account", destination: SignUpView())
-                .buttonStyle(.bordered)
-                .padding()
+            Text("Please log in or create an account to continue booking")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
             
-            Button("Cancel") {
-                dismiss()
+            NavigationLink(destination: LoginView()) {
+                Text("Login")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(12)
             }
-            .padding()
+            .padding(.horizontal, 40)
+            
+            NavigationLink(destination: SignUpView()) {
+                Text("Create an Account")
+                    .font(.headline)
+                    .foregroundColor(.blue)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal, 40)
+            
+            Button(action: {
+                dismiss()
+            }) {
+                Text("Cancel")
+                    .foregroundColor(.secondary)
+            }
+            .padding(.top)
+            
+            Spacer()
         }
     }
 }
