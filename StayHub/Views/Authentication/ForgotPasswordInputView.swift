@@ -21,15 +21,15 @@ struct ForgotPasswordInputView: View {
             .buttonStyle(.borderedProminent)
             .padding()
             
-            NavigationLink("", destination: PasswordResetConfirmationView(), isActive: $navigateToConfirmation)
-                .hidden()
+          
+            .navigationDestination(
+                isPresented: $navigateToConfirmation) {
+                    PasswordResetConfirmationView()
+                    .hidden()
+                             }
+            
+            
         }
         .navigationTitle("Forgot Password")
     }
-}//
-//  ForgotPasswordInputView.swift
-//  StayHub
-//
-//  Created by Mac on 26/12/2025.
-//
-
+}
