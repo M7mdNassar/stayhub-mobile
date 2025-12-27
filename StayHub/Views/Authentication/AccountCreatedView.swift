@@ -2,40 +2,55 @@ import SwiftUI
 
 struct AccountCreatedView: View {
     @EnvironmentObject var authManager: AuthManager
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 30) {
             Spacer()
             
-            Image(systemName: "checkmark.circle.fill")
-                .resizable()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.green)
+            // Success Icon
+            ZStack {
+                Circle()
+                    .fill(Color.cyan.opacity(0.1))
+                    .frame(width: 140, height: 140)
+                
+                Circle()
+                    .fill(Color.cyan)
+                    .frame(width: 120, height: 120)
+                
+                Image(systemName: "checkmark")
+                    .font(.system(size: 50, weight: .bold))
+                    .foregroundColor(.white)
+            }
             
-            Text("Account Created Successfully!")
-                .font(.title)
-                .bold()
-                .multilineTextAlignment(.center)
+            // Title
+            Text("Welcome Aboard!")
+                .font(.system(size: 28, weight: .bold))
             
-            Text("Welcome to StayHub")
-                .font(.title3)
+            // Subtitle
+            Text("Your account has been created successfully. You're all set to find your perfect stay.")
+                .font(.system(size: 15))
                 .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
             
             Spacer()
             
+            // Start Exploring Button
             Button(action: {
                 authManager.isAuthenticated = true
             }) {
-                Text("Continue to Home")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(12)
+                HStack {
+                    Text("Start Exploring")
+                        .font(.system(size: 16, weight: .semibold))
+                    Image(systemName: "arrow.right")
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(Color.cyan)
+                .cornerRadius(12)
             }
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 30)
             .padding(.bottom, 50)
         }
         .navigationBarBackButtonHidden()
