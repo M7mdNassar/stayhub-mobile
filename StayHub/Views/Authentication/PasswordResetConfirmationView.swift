@@ -7,35 +7,58 @@ struct PasswordResetConfirmationView: View {
         VStack(spacing: 30) {
             Spacer()
             
-            Image(systemName: "envelope.circle.fill")
-                .resizable()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.blue)
+            // Success Icon
+            ZStack {
+                Circle()
+                    .fill(Color.cyan.opacity(0.1))
+                    .frame(width: 140, height: 140)
+                
+                Image(systemName: "envelope.badge.fill")
+                    .font(.system(size: 60))
+                    .foregroundColor(.cyan)
+            }
             
-            Text("Password Reset Link Sent!")
-                .font(.title)
-                .bold()
-                .multilineTextAlignment(.center)
+            // Title
+            Text("Check your mail")
+                .font(.system(size: 28, weight: .bold))
             
-            Text("Please check your email (including spam folder) for instructions to reset your password")
-                .multilineTextAlignment(.center)
+            // Subtitle
+            Text("We have sent password recovery instructions to your email.")
+                .font(.system(size: 15))
                 .foregroundColor(.secondary)
-                .padding(.horizontal)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
             
             Spacer()
             
+            // Return to Login Button
             Button(action: {
                 dismiss()
             }) {
                 Text("Return to Login")
-                    .font(.headline)
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
+                    .frame(height: 50)
+                    .background(Color.cyan)
                     .cornerRadius(12)
             }
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 30)
+            
+            // Resend Email
+            VStack(spacing: 5) {
+                Text("Did not receive the email? Check your spam filter, or")
+                    .font(.system(size: 13))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                
+                Button(action: {}) {
+                    Text("Resend email")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.cyan)
+                }
+            }
+            .padding(.top, 10)
             .padding(.bottom, 50)
         }
         .navigationBarBackButtonHidden()

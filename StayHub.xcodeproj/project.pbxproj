@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		04A7E7F72EFF2B7800FB4703 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 04A7E7F62EFF2B7800FB4703 /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		0424ED3C2EFD902E004027CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A7E7F72EFF2B7800FB4703 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = StayHub;
 			packageProductDependencies = (
+				04A7E7F62EFF2B7800FB4703 /* Lottie */,
 			);
 			productName = StayHub;
 			productReference = 0424ED2E2EFD9029004027CE /* StayHub.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 0424ED252EFD9029004027CE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				04A7E7F52EFF2B7800FB4703 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0424ED2F2EFD9029004027CE /* Products */;
 			projectDirPath = "";
@@ -578,6 +587,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		04A7E7F52EFF2B7800FB4703 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04A7E7F62EFF2B7800FB4703 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04A7E7F52EFF2B7800FB4703 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0424ED262EFD9029004027CE /* Project object */;
 }
