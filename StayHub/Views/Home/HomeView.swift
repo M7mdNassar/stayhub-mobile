@@ -6,6 +6,19 @@ struct HomeView: View {
     @State private var searchParams = SearchParams()
     @State private var recentlyViewed = Hotel.sampleHotels
     
+    var attributedHeroTitle: AttributedString {
+        var result = AttributedString("Explore Our Latest ")
+        
+        var booking = AttributedString("Booking")
+        booking.foregroundColor = .blue
+        
+        let services = AttributedString(" Services")
+        
+        result.append(booking)
+        result.append(services)
+        return result
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .leading) {
@@ -13,12 +26,7 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 25) {
                         // Hero Section
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Explore Our Latest")
-                                .font(.system(size: 28, weight: .bold))
-                            + Text(" Booking")
-                                .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.blue)
-                            + Text(" Services")
+                            Text(attributedHeroTitle)
                                 .font(.system(size: 28, weight: .bold))
                             
                             Text("Discover and book tailored services with StayHub. From vacation rentals to event venues, enjoy a seamless booking experience.")
