@@ -5,9 +5,6 @@
 ## User settings
 xcuserdata/
 
-# Xcode user data
-xcuserdata/
-*.xcuserstate
 
 
 ## Obj-C/Swift specific
